@@ -3,7 +3,7 @@ from lshash import LSHash
 vocablist = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','x','y','z']
 dataSet = ['desk','function','see','sky','sea']
 
-lsh = LSHash(10, len(vocablist))
+lsh = LSHash(len(dataSet) - 1, len(vocablist))
 
 def bagof_word2vec(vocablist, inputset):
     returnvec = [0] * len(vocablist)
@@ -14,13 +14,23 @@ def bagof_word2vec(vocablist, inputset):
             print('word:', word, 'is not in the list_vec')
     return returnvec
 
+trainMat = []
 for postinDoc in dataSet:
     trainMat_vec = bagof_word2vec(vocablist,postinDoc)
+    trainMat.append(trainMat_vec)
     lsh.index(trainMat_vec)
 
-test_str = 'functior'
+
+test_str = 'sed'
 test_vec = bagof_word2vec(vocablist,test_str)
 print test_vec
+
 re = lsh.query(test_vec,num_results=1)
-print re
+print 'result:'
+print re[0][0]
 #print lsh.query(test_str,num_results=1)
+print trainMat.index(list(re[0][0]))
+actual = 'sea'
+actual_vec = bagof_word2vec(vocablist,actual)
+print 'sea:'
+print actual_vec
