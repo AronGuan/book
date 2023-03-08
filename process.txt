@@ -1,0 +1,7 @@
+git lfs track “* .a” --这里的 “ *.a "就是你要上传的大文件的路径
+
+git add -A
+git commit -m "提交.a大文件"
+git push
+
+
